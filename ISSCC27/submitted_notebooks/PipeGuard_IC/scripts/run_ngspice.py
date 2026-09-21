@@ -23,6 +23,9 @@ MODEL_TOKEN = "__SKY130_MODEL_LIBRARY__"
 TESTBENCHES = {
     "dc": (CIRCUITS / "testbench_dc.spice", RESULTS / "dc_operating_point.dat"),
     "ac": (CIRCUITS / "testbench_ac.spice", RESULTS / "ac_response.dat"),
+    "bias": (CIRCUITS / "testbench_bias_sweep.spice", RESULTS / "bias_sweep.dat"),
+    "noise": (CIRCUITS / "testbench_noise.spice", RESULTS / "noise_response.dat"),
+    "transient": (CIRCUITS / "testbench_transient.spice", RESULTS / "transient_response.dat"),
 }
 
 
@@ -73,7 +76,12 @@ def run_one(name: str, template: Path, expected: Path, model_lib: Path) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--analysis", choices=["dc", "ac", "all"], default="all")
+    parser.add_argument(
+        "--analysis",
+        choices=[*TESTBENCHES, "all"],
+        default="all",
+        help="Analysis to run; 'all' runs every verification testbench.",
+    )
     parser.add_argument("--model-lib")
     args = parser.parse_args()
 

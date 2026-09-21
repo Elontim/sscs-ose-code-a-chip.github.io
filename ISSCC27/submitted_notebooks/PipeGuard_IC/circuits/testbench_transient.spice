@@ -1,0 +1,24 @@
+* PipeGuard-IC small-signal transient testbench
+.lib "__SKY130_MODEL_LIBRARY__" tt
+.include "circuits/sky130_lna.spice"
+
+VDD VDD 0 1.8
+VBIAS VBIAS 0 0.65
+
+* 1 mV-peak differential input at 2 kHz around 0.9 V common mode.
+VINP INP 0 SIN(0.9 0.5m 2k 0 0 0)
+VINN INN 0 SIN(0.9 0.5m 2k 0 0 180)
+
+XAFE INP INN OUT VDD 0 VBIAS PIPEGUARD_LNA
+
+.tran 2u 5m 1m
+
+.control
+set wr_vecnames
+set wr_singlescale
+run
+wrdata results/transient_response.dat time v(inp) v(inn) v(out) i(VDD)
+quit
+.endc
+
+.end

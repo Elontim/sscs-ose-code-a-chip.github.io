@@ -24,6 +24,9 @@ Pipeline-monitoring nodes need to detect weak signatures while rejecting pump vi
 - `circuits/sky130_lna.spice` — first-pass SKY130 amplifier core
 - `circuits/testbench_dc.spice` — DC operating-point testbench
 - `circuits/testbench_ac.spice` — differential AC testbench
+- `circuits/testbench_bias_sweep.spice` — tail-bias feasibility sweep
+- `circuits/testbench_noise.spice` — input/output noise-density analysis
+- `circuits/testbench_transient.spice` — small-signal time-domain and power test
 - `scripts/run_ngspice.py` — model discovery and reproducible batch runner
 - `scripts/analyze_spice.py` — result validation, summary, and AC plot
 - `results/` — generated data, logs, summaries, and plots
@@ -64,7 +67,7 @@ A run is reported as passing only when ngspice exits successfully and produces a
 | Analytical filter/SNR exploration | Implemented |
 | Parameterized piezo sensor model | Implemented; parameters are assumptions pending measurement |
 | SKY130 transistor netlist | Implemented; exploratory first iteration |
-| DC/AC testbenches and runner | Implemented |
+| DC, AC, bias, noise and transient testbenches | Implemented |
 | Verified transistor-level results | Pending execution with ngspice + SKY130 PDK |
 | Noise, transient, distortion, PVT and mismatch | Planned |
 | Layout | Planned |

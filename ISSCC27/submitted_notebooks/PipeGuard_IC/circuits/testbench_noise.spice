@@ -1,0 +1,22 @@
+* PipeGuard-IC input-referred noise testbench
+.lib "__SKY130_MODEL_LIBRARY__" tt
+.include "circuits/sky130_lna.spice"
+
+VDD VDD 0 1.8
+VBIAS VBIAS 0 0.65
+VINP INP 0 DC 0.9 AC 1
+VINN INN 0 DC 0.9
+
+XAFE INP INN OUT VDD 0 VBIAS PIPEGUARD_LNA
+
+.noise v(OUT) VINP dec 50 10 1Meg
+
+.control
+set wr_vecnames
+set wr_singlescale
+run
+wrdata results/noise_response.dat frequency onoise_spectrum inoise_spectrum
+quit
+.endc
+
+.end

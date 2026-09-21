@@ -1,0 +1,22 @@
+* PipeGuard-IC DC operating-point testbench
+.lib "__SKY130_MODEL_LIBRARY__" tt
+.include "circuits/sky130_lna.spice"
+
+VDD VDD 0 1.8
+VBIAS VBIAS 0 0.65
+VINP INP 0 0.9
+VINN INN 0 0.9
+
+XAFE INP INN OUT VDD 0 VBIAS PIPEGUARD_LNA
+
+.op
+
+.control
+set wr_vecnames
+set wr_singlescale
+run
+wrdata results/dc_operating_point.dat v(out) i(VDD)
+quit
+.endc
+
+.end

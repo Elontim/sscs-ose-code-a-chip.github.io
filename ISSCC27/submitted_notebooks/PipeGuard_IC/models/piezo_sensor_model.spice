@@ -1,0 +1,8 @@
+* PipeGuard-IC passive piezoelectric sensor equivalent model
+* Development model: parameters must be replaced by measured sensor values.
+* Terminals: P = signal node, N = reference
+.subckt PIEZO_SENSOR P N params: CP=20n RLEAK=100Meg RS=1k
+Rseries P PINT {RS}
+Cpiezo PINT N {CP}
+Rleak PINT N {RLEAK}
+.ends PIEZO_SENSOR

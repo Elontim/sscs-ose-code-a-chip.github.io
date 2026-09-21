@@ -1,0 +1,22 @@
+* PipeGuard-IC first-pass SKY130 low-noise amplifier core
+* Exploratory topology; no performance claim until simulation and review.
+* Pins: INP INN OUT VDD VSS VBIAS
+
+.subckt PIPEGUARD_LNA INP INN OUT VDD VSS VBIAS
+
+* NMOS differential input pair
+XMN1 N1   INP NTAIL VSS sky130_fd_pr__nfet_01v8 L=1 W=20 nf=4
+XMN2 OUT  INN NTAIL VSS sky130_fd_pr__nfet_01v8 L=1 W=20 nf=4
+
+* Tail-current device
+XMNT NTAIL VBIAS VSS VSS sky130_fd_pr__nfet_01v8 L=1 W=40 nf=4
+
+* PMOS current-mirror active load
+XMP1 N1  N1 VDD VDD sky130_fd_pr__pfet_01v8 L=1 W=40 nf=4
+XMP2 OUT N1 VDD VDD sky130_fd_pr__pfet_01v8 L=1 W=40 nf=4
+
+* Representative ADC/input load for initial analysis
+CLOAD OUT VSS 2p
+RLOAD OUT VSS 1Meg
+
+.ends PIPEGUARD_LNA

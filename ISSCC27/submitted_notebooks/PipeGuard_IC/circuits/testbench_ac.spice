@@ -1,0 +1,24 @@
+* PipeGuard-IC differential AC-gain testbench
+.lib "__SKY130_MODEL_LIBRARY__" tt
+.include "circuits/sky130_lna.spice"
+
+VDD VDD 0 1.8
+VBIAS VBIAS 0 0.65
+
+* +/-0.5 V AC produces a 1 V differential small-signal input.
+VINP INP 0 DC 0.9 AC 0.5
+VINN INN 0 DC 0.9 AC -0.5
+
+XAFE INP INN OUT VDD 0 VBIAS PIPEGUARD_LNA
+
+.ac dec 100 10 100Meg
+
+.control
+set wr_vecnames
+set wr_singlescale
+run
+wrdata results/ac_response.dat frequency vdb(out) vp(out)
+quit
+.endc
+
+.end

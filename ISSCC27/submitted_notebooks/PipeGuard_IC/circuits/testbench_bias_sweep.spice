@@ -1,0 +1,22 @@
+* PipeGuard-IC tail-bias sweep testbench
+.lib "__SKY130_MODEL_LIBRARY__" tt
+.include "circuits/sky130_lna.spice"
+
+VDD VDD 0 1.8
+VBIAS VBIAS 0 0.35
+VINP INP 0 0.9
+VINN INN 0 0.9
+
+XAFE INP INN OUT VDD 0 VBIAS PIPEGUARD_LNA
+
+.dc VBIAS 0.35 1.00 0.01
+
+.control
+set wr_vecnames
+set wr_singlescale
+run
+wrdata results/bias_sweep.dat v(vbias) v(out) i(VDD)
+quit
+.endc
+
+.end
